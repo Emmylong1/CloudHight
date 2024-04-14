@@ -62,7 +62,7 @@
 FROM openjdk:8
 EXPOSE 8080
 ADD target/devops-integration.jar devops-integration.jar
-ENTRYPOINT ["java","-jar","/devops-integration.jar"]
+ENTRYPOINT ["java","-jar","/devops-integration.jar"]```
 
 ### Deploy Docker Container
 - Configure the pipeline to deploy the Docker container onto the Docker hosts provisioned earlier.
