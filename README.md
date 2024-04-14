@@ -58,13 +58,10 @@
 - Click on "Add webhook" to save.
 
 ### Create a dockerfile in your application root
-```docker
-# Copy and paste the following Dockerfile content
-FROM openjdk:8
-EXPOSE 8080
+``FROM openjdk:8
+EXPOSE 8000
 ADD target/devops-integration.jar devops-integration.jar
 ENTRYPOINT ["java","-jar","/devops-integration.jar"]
-``
 
 ### Deploy Docker Container
 - Configure the pipeline to deploy the Docker container onto the Docker hosts provisioned earlier.
