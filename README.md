@@ -56,7 +56,15 @@
 - Choose "application/json" as the content type.
 - Select "Just the push event".
 - Click on "Add webhook" to save.
-### Deploy Docker Container:
+
+### Create a dockerfile in your application root
+```docker
+FROM openjdk:8
+EXPOSE 8080
+ADD target/devops-integration.jar devops-integration.jar
+ENTRYPOINT ["java","-jar","/devops-integration.jar"]
+
+### Deploy Docker Container
 - Configure the pipeline to deploy the Docker container onto the Docker hosts provisioned earlier.
 - Use appropriate deployment scripts or commands to manage container deployment.
 ### Implement Continuous Deployment:
