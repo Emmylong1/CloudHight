@@ -1,6 +1,6 @@
-# usteam
 # - Build a CI/CD Pipeline to deploy a java application into a Highly Available Docker Host Environment on AWS.
-`![Alt text](https://i0.wp.com/devops4solutions.com/wp-content/uploads/2020/09/CI-CD-using-Jenkins-and-Docker.png?fit=774%2C511&ssl=1)`
+![Continuous Integration with Docker and Jenkins]("C:\Users\DELL\Pictures\Screenshots\Screenshot 2024-04-14 190905.png")
+
 - This project involves setting up AWS infrastructure using Terraform and implementing a CI/CD pipeline with Jenkins for a Java application. The infrastructure includes a custom VPC, Auto Scaling Group, and Load Balancer for high availability. The CI/CD pipeline automates the build, testing, and deployment of the application. Key considerations include security, monitoring, backup, and cost optimization.
 ## Planning and Design:
 - Define project requirements and architecture, including VPC layout, subnetting, availability zones, and security considerations.
@@ -48,6 +48,14 @@
 - Create a Jenkins pipeline job.
 - Configure the pipeline to fetch the Java application source code from the specified GitHub repository.
 - Set up stages within the pipeline to build the Java application and package it into a Docker container.
+### Configure GitHub Webhook
+- This trigger the pipeline automatically upon changes to the GitHub repository.
+- Go to your GitHub repository > Settings > Webhooks.
+- Click on "Add webhook".
+- Set the Payload URL to http://your-jenkins-server/github-webhook/.
+- Choose "application/json" as the content type.
+- Select "Just the push event".
+- Click on "Add webhook" to save.
 ### Deploy Docker Container:
 - Configure the pipeline to deploy the Docker container onto the Docker hosts provisioned earlier.
 - Use appropriate deployment scripts or commands to manage container deployment.

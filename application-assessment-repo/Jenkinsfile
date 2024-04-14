@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                sh  "echo cloning the latest application version"
+                git "https://github.com/Emmylong1/CloudHight/tree/main/application-assessment-repo"
+            }
+        }
+
+        stage('Unit-Testing') {
+            steps {
+                sh "echo Running Unit Testing"
+                sh "echo Unit Testing Ok Creating Package"
+                sh "mvn clean package"
+                sh "echo Artifacts Created"
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script 
+				sh "echo Building Docker image"
+                sh "docker build -t cloudhight ."
+                sh "echo Docker image built successfully"
+
+			}
+		}
+
+        stage('Run Docker Container') {
+            steps {
+                // Run your Docker container and send a message alerting
+                // Replace 'your-image-tag' with the tag of your Docker image
+                // Replace 'your-message' with the desired message to be alerted
+                script {
+                    sh "docker run -d your-image-tag echo 'your-message'"
+                }
+            }
+        }
+    }
+}
