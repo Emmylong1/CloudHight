@@ -13,7 +13,7 @@ pipeline {
             steps {
                 dir('/var/lib/jenkins/workspace/Cloudhight-CICD/application-assessment-repo') {
                     echo "Running Unit Testing"
-                    sh "mvn clean test"
+                    sh "mvn clean package"
                     echo "Unit Testing Successful"
                 }
             }
