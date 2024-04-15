@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "Cloning the latest application version"
-                git branch: 'main', url: 'https://github.com/Emmylong1/CloudHight/tree/main/application-assessment-repo'
+                git branch: 'main', url: 'https://github.com/Emmylong1/CloudHight.git'
             }
         }
 
@@ -32,9 +32,9 @@ pipeline {
         stage('Docker Run') {
             steps {
                 script {
-                    sh "echo Starting Docker container"
+                    echo "Starting Docker container"
                     sh "docker run -d -p 8085:8085 --name cloudhight cloudhight"
-                    sh "echo Docker container started successfully"
+                    echo "Docker container started successfully"
                 }
             }
         }
