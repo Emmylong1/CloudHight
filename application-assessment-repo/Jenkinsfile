@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "Cloning the latest application version"
-                git branch: 'main', url: 'https://github.com/Emmylong1/CloudHight.git'
+                git branch: 'main', url: 'https://github.com/Emmylong1/CloudHight/tree/main/application-assessment-repo'
             }
         }
 
