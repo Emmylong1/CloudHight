@@ -41,3 +41,10 @@ variable "instance_type" {
 }
 
 
+
+variable "jenkins-instance_type" {
+  type        = string
+  description = "EC2 instance type for private subnet"
+  default     = "t3.medium"
+}
+

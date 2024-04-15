@@ -1,6 +1,5 @@
-# usteam
 # - Build a CI/CD Pipeline to deploy a java application into a Highly Available Docker Host Environment on AWS.
-`![Alt text](https://i0.wp.com/devops4solutions.com/wp-content/uploads/2020/09/CI-CD-using-Jenkins-and-Docker.png?fit=774%2C511&ssl=1)`
+
 - This project involves setting up AWS infrastructure using Terraform and implementing a CI/CD pipeline with Jenkins for a Java application. The infrastructure includes a custom VPC, Auto Scaling Group, and Load Balancer for high availability. The CI/CD pipeline automates the build, testing, and deployment of the application. Key considerations include security, monitoring, backup, and cost optimization.
 ## Planning and Design:
 - Define project requirements and architecture, including VPC layout, subnetting, availability zones, and security considerations.
@@ -48,9 +47,41 @@
 - Create a Jenkins pipeline job.
 - Configure the pipeline to fetch the Java application source code from the specified GitHub repository.
 - Set up stages within the pipeline to build the Java application and package it into a Docker container.
-### Deploy Docker Container:
+### Configure GitHub Webhook
+- This trigger the pipeline automatically upon changes to the GitHub repository.
+- Go to your GitHub repository > Settings > Webhooks.
+- Click on "Add webhook".
+- Set the Payload URL to http://your-jenkins-server/github-webhook/.
+- Choose "application/json" as the content type.
+- Select "Just the push event".
+- Click on "Add webhook" to save.
+
+### Deploy Docker Container
 - Configure the pipeline to deploy the Docker container onto the Docker hosts provisioned earlier.
 - Use appropriate deployment scripts or commands to manage container deployment.
 ### Implement Continuous Deployment:
 - Set up a webhook or polling mechanism in Jenkins to trigger the pipeline automatically upon changes to the GitHub repository.
 Ensure proper testing and approval processes are integrated into the pipeline to maintain quality control.
+
+### Create a dockerfile in your application root
+```FROM maven:3.8.4-openjdk-11 AS build
+
+WORKDIR /app
+
+COPY pom.xml .
+
+COPY .mvn ./.mvn
+COPY src ./src
+COPY target ./target
+
+RUN mvn clean package -DskipTests
+
+FROM adoptopenjdk/openjdk11:alpine-slim
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.war ./cloudhight.war
+
+EXPOSE 8085
+
+CMD ["java", "-jar", "cloudhight.war"]

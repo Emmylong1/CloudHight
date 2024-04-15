@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "Cloning the latest application version"
+                git branch: 'main', url: 'https://github.com/Emmylong1/CloudHight.git'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir('/var/lib/jenkins/workspace/Cloudhight-CICD/application-assessment-repo') {
+                    echo "Running Unit Testing"
+                    sh "mvn clean test"
+                    echo "Unit Testing Successful"
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                dir('/var/lib/jenkins/workspace/Cloudhight-CICD/application-assessment-repo') {
+                    echo "Building Docker image"
+                    sh "docker build -t cloudhight ."
+                    echo "Docker image built successfully"
+                }
+            }
+        }
+
+        stage('Docker Run') {
+            steps {
+                script {
+                    sh "echo Starting Docker container"
+                    sh "docker run -d -p 8085:8085 --name cloudhight cloudhight"
+                    sh "echo Docker container started successfully"
+                }
+            }
+        }
+    }
+}
