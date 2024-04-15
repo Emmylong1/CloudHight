@@ -1,5 +1,4 @@
 # - Build a CI/CD Pipeline to deploy a java application into a Highly Available Docker Host Environment on AWS.
-![Continuous Integration with Docker and Jenkins]("C:\Users\DELL\Pictures\Screenshots\Screenshot 2024-04-14 190905.png")
 
 - This project involves setting up AWS infrastructure using Terraform and implementing a CI/CD pipeline with Jenkins for a Java application. The infrastructure includes a custom VPC, Auto Scaling Group, and Load Balancer for high availability. The CI/CD pipeline automates the build, testing, and deployment of the application. Key considerations include security, monitoring, backup, and cost optimization.
 ## Planning and Design:
