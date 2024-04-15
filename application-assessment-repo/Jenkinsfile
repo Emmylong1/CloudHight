@@ -4,37 +4,37 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                sh  "echo cloning the latest application version"
-                git "https://github.com/Emmylong1/CloudHight/tree/main/application-assessment-repo"
+                echo "Cloning the latest application version"
+                git branch: 'main', url: 'https://github.com/Emmylong1/CloudHight.git'
             }
         }
 
-        stage('Unit-Testing') {
+        stage('Test') {
             steps {
-                sh "echo Running Unit Testing"
-                sh "echo Unit Testing Ok Creating Package"
-                sh "mvn clean package"
-                sh "echo Artifacts Created"
+                dir('/var/lib/jenkins/workspace/Cloudhight-CICD/application-assessment-repo') {
+                    echo "Running Unit Testing"
+                    sh "mvn clean test"
+                    echo "Unit Testing Successful"
+                }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script 
-				sh "echo Building Docker image"
-                sh "docker build -t cloudhight ."
-                sh "echo Docker image built successfully"
+                dir('/var/lib/jenkins/workspace/Cloudhight-CICD/application-assessment-repo') {
+                    echo "Building Docker image"
+                    sh "docker build -t cloudhight ."
+                    echo "Docker image built successfully"
+                }
+            }
+        }
 
-			}
-		}
-
-        stage('Run Docker Container') {
+        stage('Docker Run') {
             steps {
-                // Run your Docker container and send a message alerting
-                // Replace 'your-image-tag' with the tag of your Docker image
-                // Replace 'your-message' with the desired message to be alerted
                 script {
-                    sh "docker run -d your-image-tag echo 'your-message'"
+                    sh "echo Starting Docker container"
+                    sh "docker run -d -p 8085:8085 --name cloudhight cloudhight"
+                    sh "echo Docker container started successfully"
                 }
             }
         }

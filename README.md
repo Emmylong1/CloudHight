@@ -58,10 +58,28 @@
 - Click on "Add webhook" to save.
 
 ### Create a dockerfile in your application root
-``FROM openjdk:8
-EXPOSE 8000
-ADD target/devops-integration.jar devops-integration.jar
-ENTRYPOINT ["java","-jar","/devops-integration.jar"]
+``FROM maven:3.8.4-openjdk-11 AS build
+
+WORKDIR /app
+
+COPY pom.xml .
+
+COPY .mvn ./.mvn
+COPY src ./src
+COPY target ./target
+
+RUN mvn clean package -DskipTests
+
+FROM adoptopenjdk/openjdk11:alpine-slim
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.war ./cloudhight.war
+
+EXPOSE 8085
+
+CMD ["java", "-jar", "cloudhight.war"]
+
 
 ### Deploy Docker Container
 - Configure the pipeline to deploy the Docker container onto the Docker hosts provisioned earlier.
