@@ -57,7 +57,7 @@
 - Click on "Add webhook" to save.
 
 ### Create a dockerfile in your application root
-``FROM maven:3.8.4-openjdk-11 AS build
+```FROM maven:3.8.4-openjdk-11 AS build
 
 WORKDIR /app
 
