@@ -77,7 +77,7 @@ COPY --from=build /app/target/*.war ./cloudhight.war
 
 EXPOSE 8085
 
-CMD ["java", "-jar", "cloudhight.war"]
+```CMD ["java", "-jar", "cloudhight.war"]
 
 
 ### Deploy Docker Container
