@@ -56,6 +56,13 @@
 - Select "Just the push event".
 - Click on "Add webhook" to save.
 
+### Deploy Docker Container
+- Configure the pipeline to deploy the Docker container onto the Docker hosts provisioned earlier.
+- Use appropriate deployment scripts or commands to manage container deployment.
+### Implement Continuous Deployment:
+- Set up a webhook or polling mechanism in Jenkins to trigger the pipeline automatically upon changes to the GitHub repository.
+Ensure proper testing and approval processes are integrated into the pipeline to maintain quality control.
+
 ### Create a dockerfile in your application root
 ```FROM maven:3.8.4-openjdk-11 AS build
 
@@ -77,12 +84,4 @@ COPY --from=build /app/target/*.war ./cloudhight.war
 
 EXPOSE 8085
 
-```CMD ["java", "-jar", "cloudhight.war"]
-
-
-### Deploy Docker Container
-- Configure the pipeline to deploy the Docker container onto the Docker hosts provisioned earlier.
-- Use appropriate deployment scripts or commands to manage container deployment.
-### Implement Continuous Deployment:
-- Set up a webhook or polling mechanism in Jenkins to trigger the pipeline automatically upon changes to the GitHub repository.
-Ensure proper testing and approval processes are integrated into the pipeline to maintain quality control.
+CMD ["java", "-jar", "cloudhight.war"]
