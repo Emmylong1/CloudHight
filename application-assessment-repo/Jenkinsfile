@@ -9,33 +9,36 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Change Directory') {
             steps {
                 dir('/var/lib/jenkins/workspace/Cloudhight-CICD/application-assessment-repo') {
-                    echo "Running Unit Testing"
-                    sh "mvn clean package"
-                    echo "Unit Testing Successful"
+                    // This stage is just to change the directory
+                    echo "Changed directory to application-assessment-repo"
                 }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Running Unit Testing"
+                sh "mvn clean package"
+                echo "Unit Testing Successful"
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                dir('/var/lib/jenkins/workspace/Cloudhight-CICD/application-assessment-repo') {
-                    echo "Building Docker image"
-                    sh "docker build -t cloudhight ."
-                    echo "Docker image built successfully"
-                }
+                echo "Building Docker image"
+                sh "docker build -t cloudhight ."
+                echo "Docker image built successfully"
             }
         }
 
         stage('Docker Run') {
             steps {
-                script {
-                    echo "Starting Docker container"
-                    sh "docker run -d -p 8085:8085 --name cloudhight cloudhight"
-                    echo "Docker container started successfully"
-                }
+                echo "Starting Docker container"
+                sh "docker run -d -p 8085:8085 --name cloudhight cloudhight"
+                echo "Docker container started successfully"
             }
         }
     }
