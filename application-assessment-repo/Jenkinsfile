@@ -12,7 +12,6 @@ pipeline {
         stage('Change Directory') {
             steps {
                 dir('/var/lib/jenkins/workspace/Cloudhight-CICD/application-assessment-repo') {
-                    // This stage is just to change the directory
                     echo "Changed directory to application-assessment-repo"
                 }
             }
