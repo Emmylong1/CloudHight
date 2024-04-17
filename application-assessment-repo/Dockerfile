@@ -7,8 +7,6 @@ COPY pom.xml .
 COPY .mvn ./.mvn
 COPY src ./src
 
-
-
 FROM adoptopenjdk/openjdk11:alpine-slim
 
 WORKDIR /app

@@ -91,15 +91,12 @@ COPY pom.xml .
 
 COPY .mvn ./.mvn
 COPY src ./src
-COPY target ./target
-
-RUN mvn clean package -DskipTests
 
 FROM adoptopenjdk/openjdk11:alpine-slim
 
 WORKDIR /app
 
-COPY --from=build /app/target/*.war ./cloudhight.war
+COPY target/*.war ./cloudhight.war
 
 EXPOSE 8085
 
